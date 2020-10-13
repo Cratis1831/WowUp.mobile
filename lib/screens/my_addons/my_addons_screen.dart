@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../api.dart';
-import '../../screens/models/wowup.dart';
+import '../../models/wowup.dart';
 
 class MyAddonsScreen extends StatefulWidget {
   @override
