@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:wowup_mobile/components/app_icons.dart';
 import 'package:wowup_mobile/constants.dart';
@@ -54,12 +55,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           indicatorColor: Colors.white,
           tabs: [
             Tab(icon: Icon(Icons.list)),
+            //Tab(icon: Icon(AppIcons.wowup_512, size: 32)),
             Tab(icon: Icon(Icons.search)),
-            Tab(
-                icon: Icon(
-              AppIcons.raiderio,
-              size: 32,
-            )),
+            Tab(icon: Icon(AppIcons.raiderio, size: 32)),
             Tab(icon: Icon(Icons.settings)),
           ],
         ),

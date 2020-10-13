@@ -64,6 +64,9 @@ flutter:
     - family: RaiderIO
       fonts:
         - asset: assets/fonts/RaiderIO.ttf
+    - family: WowUp
+      fonts:
+        - asset: assets/fonts/WowUp.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

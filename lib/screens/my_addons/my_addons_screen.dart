@@ -21,9 +21,8 @@ class _MyAddonsScreenState extends State<MyAddonsScreen> {
       // If the server did return a 200 OK response,d
       // then parse the JSON.
       Map<String, dynamic> map = json.decode(response.body);
-
       listOfAddons = (map['addons'] as List).map((i) => Addons.fromJson(i)).toList();
-
+      print(json.decode(response.body));
       return listOfAddons;
     } else {
       // If the server did not return a 200 OK response,
@@ -40,6 +39,12 @@ class _MyAddonsScreenState extends State<MyAddonsScreen> {
     super.initState();
   }
 
+  Future<void> _getData() async {
+    setState(() {
+      futureWowUpData = fetchWowUpData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,35 +52,39 @@ class _MyAddonsScreenState extends State<MyAddonsScreen> {
         future: futureWowUpData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (ctx, item) {
-                Addons addon = snapshot.data[item];
-                if (!addon.isAvailable) {
-                  return Card(
-                    child: ListTile(
-                      leading: Image.network(
-                        addon.ownerImageUrl,
-                        height: 48,
-                        width: 48,
+            return RefreshIndicator(
+              onRefresh: _getData,
+              child: ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (ctx, item) {
+                  Addons addon = snapshot.data[item];
+                  if (addon.isAvailable) {
+                    return Card(
+                      child: ListTile(
+                        leading: Image.network(
+                          addon.ownerImageUrl,
+                          height: 48,
+                          width: 48,
+                        ),
+                        title: Text(
+                          addon.repositoryName,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          addon.description,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        trailing: Icon(Icons.more_vert),
+                        isThreeLine: true,
                       ),
-                      title: Text(
-                        addon.repositoryName,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        addon.description,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: Icon(Icons.more_vert),
-                      isThreeLine: true,
-                    ),
-                  );
-                }
-              },
+                    );
+                  }
+                },
+              ),
             );
           } else if (snapshot.hasError) {
+            print(snapshot.error);
             return Text("ERROR:  ${snapshot.error}");
           }
           // By default, show a loading spinner.

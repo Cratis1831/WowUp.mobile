@@ -1,3 +1,29 @@
+class Wowup {
+  List<Addons> addons;
+  int count;
+
+  Wowup({this.addons, this.count});
+
+  Wowup.fromJson(Map<String, dynamic> json) {
+    if (json['addons'] != null) {
+      addons = new List<Addons>();
+      json['addons'].forEach((v) {
+        addons.add(new Addons.fromJson(v));
+      });
+    }
+    count = json['count'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.addons != null) {
+      data['addons'] = this.addons.map((v) => v.toJson()).toList();
+    }
+    data['count'] = this.count;
+    return data;
+  }
+}
+
 class Addons {
   int id;
   String repository;
@@ -10,8 +36,8 @@ class Addons {
   String ownerName;
   String ownerImageUrl;
   String patreonFundingLink;
-  String githubFundingLink;
-  String customFundingLink;
+  Null githubFundingLink;
+  Null customFundingLink;
   int totalDownloadCount;
   String addonState;
   String addonStateChangedAt;
