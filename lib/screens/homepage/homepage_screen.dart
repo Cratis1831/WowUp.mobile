@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wowup_mobile/components/app_icons.dart';
 import 'package:wowup_mobile/constants.dart';
 import 'package:wowup_mobile/screens/my_addons/my_addons_screen.dart';
 import 'package:wowup_mobile/screens/settings/settings_screen.dart';
@@ -54,7 +55,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           tabs: [
             Tab(icon: Icon(Icons.list)),
             Tab(icon: Icon(Icons.search)),
-            Tab(icon: Icon(Icons.info)),
+            Tab(
+                icon: Icon(
+              AppIcons.raiderio,
+              size: 32,
+            )),
             Tab(icon: Icon(Icons.settings)),
           ],
         ),

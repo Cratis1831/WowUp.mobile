@@ -30,9 +30,14 @@
 .pub-cache/
 .pub/
 /build/
+
+#manually updated
+/assets/
 /windows/
 /web/
 api.dart
+
+
 # Web related
 lib/generated_plugin_registrant.dart
 

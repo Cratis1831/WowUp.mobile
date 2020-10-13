@@ -23,7 +23,6 @@ class _MyAddonsScreenState extends State<MyAddonsScreen> {
       Map<String, dynamic> map = json.decode(response.body);
 
       listOfAddons = (map['addons'] as List).map((i) => Addons.fromJson(i)).toList();
-      //print((json.decode(response.body) as List).map((i) => WowUpAPI.fromJson(i)).toList());
 
       return listOfAddons;
     } else {
@@ -52,7 +51,28 @@ class _MyAddonsScreenState extends State<MyAddonsScreen> {
               itemCount: snapshot.data.length,
               itemBuilder: (ctx, item) {
                 Addons addon = snapshot.data[item];
-                return Text(addon.repositoryName); //temporary
+                if (!addon.isAvailable) {
+                  return Card(
+                    child: ListTile(
+                      leading: Image.network(
+                        addon.ownerImageUrl,
+                        height: 48,
+                        width: 48,
+                      ),
+                      title: Text(
+                        addon.repositoryName,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        addon.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      trailing: Icon(Icons.more_vert),
+                      isThreeLine: true,
+                    ),
+                  );
+                }
               },
             );
           } else if (snapshot.hasError) {
